@@ -21,6 +21,6 @@ public class BaseToggle : MonoBehaviour
 
     private void OnValueChange(bool isOn)
     {
-
+        Debug.Log("Toggle.isOn is " + isOn + "  (BaseToggle.cs)");
     }
 }

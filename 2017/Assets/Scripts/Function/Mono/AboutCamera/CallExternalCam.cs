@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Call the external camera
 /// </summary
-public class CallExtCam : MonoBehaviour
+public class CallExternalCam : MonoBehaviour
 {
     public string deviceName;           
     private WebCamTexture cameTexture;         

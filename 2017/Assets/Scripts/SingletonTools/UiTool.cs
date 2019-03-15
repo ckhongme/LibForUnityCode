@@ -20,6 +20,9 @@ public class UiTool : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 设置输入框的
+    /// </summary>
     public void SetContentType(InputField ifd, bool isPassword)
     {
         if(ifd != null)
