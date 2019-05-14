@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 密码保护
+/// </summary>
 [RequireComponent(typeof(Toggle))]
 public class PwdToggle : MonoBehaviour
 {

@@ -10,12 +10,18 @@ namespace K
     /// </summary>
     public class MatTool
     {
+        public static void ChangeShader(Material mat, string shaderName)
+        {
+            if (mat != null)
+                mat.shader = Shader.Find(shaderName);
+        }
+
         /// <summary>
-        /// 改变物体的材质
+        /// 改变物体材质球的Shader
         /// </summary>
         /// <param name="go"></param>
         /// <param name="shaderName"></param>
-        public static void ChangeMat(GameObject go, string shaderName)
+        public static void ChangeShader(GameObject go, string shaderName)
         {
             if (go != null)
             {
@@ -35,8 +41,7 @@ namespace K
             if (go != null)
             {
                 Image[] images = go.GetComponentsInChildren<Image>(true);
-                int count = images.Length;
-                for (int i = 0; i < count; i++)
+                for (int i = 0; i < images.Length; i++)
                 {
                     if (images[i].material == null || images[i].material != mat)
                     {
@@ -47,8 +52,7 @@ namespace K
                 if (isCoverText)
                 {
                     Text[] texts = go.GetComponentsInChildren<Text>(true);
-                    int count2 = texts.Length;
-                    for (int i = 0; i < count2; i++)
+                    for (int i = 0; i < texts.Length; i++)
                     {
                         if (texts[i].material == null || texts[i].material != mat)
                         {
@@ -57,12 +61,6 @@ namespace K
                     }
                 }
             }
-        }
-
-        public static void ChangeMat(Material mat, string shaderName)
-        {
-            if (mat != null)
-                mat.shader = Shader.Find(shaderName);
         }
     }
 }

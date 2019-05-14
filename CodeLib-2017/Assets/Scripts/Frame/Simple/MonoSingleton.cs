@@ -17,7 +17,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
         if(instance == null)
         {
             instance = this as T;
-            instance.Init();
+            Init();
         }
     }
 

@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UiTool : MonoBehaviour
+public class UguiTool : MonoBehaviour
 {
-    public static UiTool Instance;
+    public static UguiTool Instance;
 
     private void Awake()
     {
