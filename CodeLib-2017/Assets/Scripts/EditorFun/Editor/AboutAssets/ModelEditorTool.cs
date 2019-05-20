@@ -6,7 +6,7 @@ using UnityEditor;
 /// <summary>
 /// 模型资源管理
 /// </summary>
-public class ModelEditor
+public class ModelEditorTool
 {
     private static string[] modelSuffix = new string[] { ".fbx" };
     private static List<string> models = new List<string>();
@@ -31,7 +31,7 @@ public class ModelEditor
 
     private static void SetReadWrite(bool isEnable)
     {
-        models = EditorTool.GetSelectionTargetPaths(false, modelSuffix);
+        models = SystemIOTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, modelSuffix);
         for (int i = 0; i < models.Count; i++)
         {
             EditorUtility.DisplayProgressBar("SetRead&Write", "设置模型的Read&Write属性", 1f * i / models.Count);

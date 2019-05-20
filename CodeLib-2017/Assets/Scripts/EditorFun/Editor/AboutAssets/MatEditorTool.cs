@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// 材质编辑器 （添加贴图&移除贴图）
 /// </summary>
-public class MatEditor
+public class MatEditorTool
 {
     //此处添加需要命名的资源后缀名,注意大小写。
     private static string[] matSuffix = new string[] { ".mat" };
@@ -15,8 +15,6 @@ public class MatEditor
 
     private static List<FileInfo> mats = new List<FileInfo>();
     private static List<FileInfo> texs = new List<FileInfo>();
-
-    private static string tip;
 
     /// <summary>
     /// 给材质添加贴图
@@ -40,9 +38,11 @@ public class MatEditor
 
     private static void SetTex(bool isAdd)
     {
-        EditorTool.GetFileInfoList(mats, matSuffix);
+        string path = EditorTool.GetSelectionPath(true);
+        SystemIOTool.GetFileInfoList(path, mats, matSuffix);
+
         if (isAdd)
-            EditorTool.GetFileInfoList(texs, texSuffix);
+            SystemIOTool.GetFileInfoList(path,texs, texSuffix);
 
         for (int i = 0; i < mats.Count; i++)
         {
@@ -65,7 +65,7 @@ public class MatEditor
 
     private static void _AddTex(FileInfo fileInfo, List<FileInfo> texs)
     {
-        Material mat = EditorTool.Trans2Object(fileInfo) as Material;
+        Material mat = EditorTool.Trans2Object<Material>(fileInfo);
         string matName = NameSetting(fileInfo.Name);
 
         if (mat != null)
@@ -74,7 +74,7 @@ public class MatEditor
             {
                 if (NameCompare(matName, tex.Name))
                 {
-                    Texture t = EditorTool.Trans2Object(tex) as Texture;
+                    Texture t = EditorTool.Trans2Object<Texture>(tex);
                     if (t != null)
                     {
                         SelectTex(mat, t);
@@ -127,7 +127,7 @@ public class MatEditor
 
     private static void _RemoveTex(FileInfo fileInfo)
     {
-        Material mat = EditorTool.Trans2Object(fileInfo) as Material;
+        Material mat = EditorTool.Trans2Object<Material>(fileInfo);
         if (mat != null)
         {
             mat.SetTexture(Albedo, null);
