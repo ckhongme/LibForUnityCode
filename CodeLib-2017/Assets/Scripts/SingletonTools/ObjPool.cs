@@ -10,7 +10,9 @@ namespace K
     public class ObjPool : MonoBehaviour
     {
         public static ObjPool Instance;
-        private Dictionary<string, List<GameObject>> cache;
+        private Dictionary<string, List<GameObject>> libs;
+
+        private Transform container;
 
         private void Awake()
         {
@@ -25,7 +27,7 @@ namespace K
                     Destroy(gameObject);
                 }
             }
-            cache = new Dictionary<string, List<GameObject>>();
+            libs = new Dictionary<string, List<GameObject>>();
         }
 
         private void OnDestroy()
@@ -33,8 +35,12 @@ namespace K
             Instance = null;
         }
 
-        #region create gameObject
-
+        public void SetContainer(Transform container)
+        {
+            this.container = container;
+        }
+        
+        #region Create GameObject
 
         public GameObject CreateObj(string key, GameObject prefab)
         {
@@ -48,6 +54,8 @@ namespace K
                 if (prefab != null)
                 {
                     temp = Instantiate(prefab) as GameObject;
+                    if (container != null)
+                        temp.transform.SetParent(container);
                     _Add(key, temp);
                 }
             }
@@ -67,24 +75,24 @@ namespace K
 
         private GameObject _FindUsable(string key)
         {
-            if (cache.ContainsKey(key))
+            if (libs.ContainsKey(key))
             {
-                cache[key].RemoveAll(p => p == null);
-                return cache[key].Find(p => !p.activeSelf);
+                libs[key].RemoveAll(p => p == null);
+                return libs[key].Find(p => !p.activeSelf);
             }
             return null;
         }
 
         private void _Add(string key, GameObject go)
         {
-            if (!cache.ContainsKey(key))
-                cache.Add(key, new List<GameObject>());
-            cache[key].Add(go);
+            if (!libs.ContainsKey(key))
+                libs.Add(key, new List<GameObject>());
+            libs[key].Add(go);
         }
 
         #endregion
 
-        #region collect gameObject
+        #region Collect GameObject
 
         public void CollectObj(GameObject go)
         {
@@ -108,7 +116,7 @@ namespace K
 
         public void ClearAll()
         {
-            var list = new List<string>(cache.Keys);
+            var list = new List<string>(libs.Keys);
             while (list.Count > 0)
             {
                 Clear(list[0]);
@@ -118,19 +126,26 @@ namespace K
 
         public void Clear(string key)
         {
-            if (cache.ContainsKey(key))
+            if (libs.ContainsKey(key))
             {
-                while (cache[key].Count > 0)
+                while (libs[key].Count > 0)
                 {
                     //release value first
-                    Destroy(cache[key][0]);
-                    cache[key].RemoveAt(0);
+                    Destroy(libs[key][0]);
+                    libs[key].RemoveAt(0);
                 }
-                cache.Remove(key);
+                libs.Remove(key);
             }
         }
 
         #endregion
+
+        public List<GameObject> GetObjs(string key)
+        {
+            if (libs.ContainsKey(key))
+                return libs[key];
+            return null;
+        }
     }
 }
 
