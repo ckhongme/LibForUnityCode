@@ -9,7 +9,7 @@ public class SystemIOTool
     /// <summary>
     /// 获取满足条件的目标对象的路径
     /// </summary>
-    /// <param name="fullPath">资源文件夹的路径（fullPath）</param>
+    /// <param name="fullPath">资源文件夹的路径（包括磁盘目录）</param>
     /// <param name="predicate">需要满足的条件</param>
     /// <param name="isFullPath">是否返回完整路径</param>
     public static List<string> GetTargetPaths(string fullPath, System.Func<string, bool> predicate, 
@@ -24,6 +24,7 @@ public class SystemIOTool
             foreach (var item in assetPaths)
             {
                 string path = item.Replace(@"\", "/");
+
                 if (!isFullPath)
                     path = path.Substring(path.IndexOf("Assets"));
 
@@ -68,6 +69,7 @@ public class SystemIOTool
         }
         return paths;
     }
+
 
     public static void GetFileInfoList(string fullPath, List<FileInfo> list, string[] suffixs)
     {

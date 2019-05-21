@@ -8,7 +8,7 @@ using System.IO;
 public class EditorTool
 {
     /* 完整目录 fullPath 包括磁盘目录
-     * 项目目录 assetPaht 不包括磁盘目录，从Assets目录开始*/
+     * 项目目录 assetPath 不包括磁盘目录，从Assets目录开始*/
 
     /// <summary>
     /// 获取选择的路径
@@ -27,6 +27,15 @@ public class EditorTool
         }
         return string.Empty;
     }
+
+    public static void SelectSceneObj(GameObject go)
+    {
+        EditorGUIUtility.PingObject(go);
+        Selection.activeGameObject = go;
+    }
+
+
+
 
     #region 格式转换
 

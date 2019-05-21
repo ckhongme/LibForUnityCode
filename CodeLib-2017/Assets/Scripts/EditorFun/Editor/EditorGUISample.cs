@@ -17,8 +17,7 @@ public class EditorGUISample
         //结束垂直组
         EditorGUILayout.EndVertical();
 
-        //空行
-        EditorGUILayout.Space();
+
 
         //标签折页箭头
         isFoldout = EditorGUILayout.Foldout(isFoldout, "K Struct");
