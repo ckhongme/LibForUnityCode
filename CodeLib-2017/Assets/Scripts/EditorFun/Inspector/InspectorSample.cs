@@ -7,18 +7,14 @@ using UnityEngine;
 /// </summary>
 public class InspectorSample : MonoBehaviour
 {
-    [HideInInspector]
-    public bool isFoldout = true;
-    [HideInInspector]
-    public bool Toggle = false;
-    [HideInInspector]
-    public bool ToggleLeft = false;
-
     public float minValue;
     public float maxValue;
 
     [HideInInspector]
     public InspectorData data;
+
+    [HideInInspector]
+    public InspectorEditorData editorData;
 
     public struct InspectorData
     {
@@ -32,6 +28,14 @@ public class InspectorSample : MonoBehaviour
         public float range;
         public InspectorEnumSample enumSample;
         public Color color;
+    }
+
+    public struct InspectorEditorData
+    {
+        public bool isFoldout;
+        public bool Toggle;
+        public bool ToggleLeft;
+        public bool isDisable;
     }
 
 }

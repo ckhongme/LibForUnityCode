@@ -41,13 +41,15 @@ public class ScriptableObjSample : ScriptableObject
 
 #if UNITY_EDITOR
             // Only in the editor should we save it to disk
-            string path = System.IO.Path.Combine(UnityEngine.Application.dataPath, "project/Resources");
+            string path = System.IO.Path.Combine(UnityEngine.Application.dataPath, "Scripts/SingletonTools/ScriptableObject/Resources");
+            Debug.Log(path);
+
             if (!System.IO.Directory.Exists(path))
             {
-                UnityEditor.AssetDatabase.CreateFolder("Assets/project", "Resources");
+                UnityEditor.AssetDatabase.CreateFolder("Assets/Scripts/SingletonTools/ScriptableObject", "Resources");
             }
 
-            string fullPath = System.IO.Path.Combine("Assets/project/Resources",
+            string fullPath = System.IO.Path.Combine("Assets/Scripts/SingletonTools/ScriptableObject/Resources",
                 "ScriptableObjSample.asset");
             UnityEditor.AssetDatabase.CreateAsset(instance, fullPath);
 #endif

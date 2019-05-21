@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditor.AnimatedValues;
 
 /// <summary>
 /// 属性页面扩展   （扩展类脚本需要放置在Editor文件夹下）
@@ -9,6 +10,7 @@ public class InspectorSampleEditor : Editor
 {
     public override void OnInspectorGUI()
     {
+        //设置GUI.enable可以管理UI的可编辑性
         GUI.enabled = false;
         base.OnInspectorGUI();
         GUI.enabled = true;
@@ -25,19 +27,22 @@ public class InspectorSampleEditor : Editor
     {
         EditorGUILayout.HelpBox("If you need more setting", MessageType.Warning);
         //Foldout
-        sample.isFoldout = EditorGUILayout.Foldout(sample.isFoldout, "ShowSetting");
-        if (sample.isFoldout)
+        sample.editorData.isFoldout = EditorGUILayout.Foldout(sample.editorData.isFoldout, "Data Setting");
+        if (sample.editorData.isFoldout)
         {
             EditorGUI.indentLevel += 1;
             //Toggle
-            sample.Toggle = EditorGUILayout.Toggle("Target Setting", sample.Toggle);
-            if (sample.Toggle)
+            sample.editorData.Toggle = EditorGUILayout.Toggle("Target Setting", sample.editorData.Toggle);
+            if (sample.editorData.Toggle)
             {
-                SettingTarget(sample);
+                EditorGUI.indentLevel += 2;
+                //ObjectField
+                sample.data.Target = (Transform)EditorGUILayout.ObjectField("Target", sample.data.Target, typeof(Transform), true);
+                EditorGUI.indentLevel -= 2;
             }
 
-            sample.ToggleLeft = EditorGUILayout.ToggleLeft("Data Setting", sample.ToggleLeft);
-            if (sample.ToggleLeft)
+            sample.editorData.ToggleLeft = EditorGUILayout.ToggleLeft("Edit Data", sample.editorData.ToggleLeft);
+            if(sample.editorData.ToggleLeft)
             {
                 //判断BeginChangeCheck 和 EndChangeCheck之间的代码是否有改变
                 EditorGUI.BeginChangeCheck();
@@ -52,19 +57,12 @@ public class InspectorSampleEditor : Editor
         //空行
         EditorGUILayout.Space();
 
-        EditorGUILayout.LabelField("Other Funs");
+        EditorGUILayout.LabelField("Group Setting");
+
+
 
         ShowHorizontalGroup();
         ShowVerticalGroup();
-    }
-
-    private void SettingTarget(InspectorSample sample)
-    {
-        EditorGUI.indentLevel += 2;
-        //ObjectField
-        sample.data.Target = (Transform)EditorGUILayout.ObjectField("Target", sample.data.Target, typeof(Transform), true);
-
-        EditorGUI.indentLevel -= 2;
     }
 
     private void SettingData(InspectorSample sample)
@@ -79,7 +77,6 @@ public class InspectorSampleEditor : Editor
         sample.data.intRange = EditorGUILayout.IntSlider("IntRange", sample.data.intRange, 0, 10);
         sample.data.range = EditorGUILayout.Slider("Range", sample.data.range, 0, 1);
         EditorGUILayout.MinMaxSlider("MinMaxValue", ref sample.minValue, ref sample.maxValue, 0, 1);
-
         sample.data.enumSample = (InspectorEnumSample)EditorGUILayout.EnumPopup("Enum Value", sample.data.enumSample);
 
         EditorGUI.indentLevel -= 2;
@@ -101,14 +98,32 @@ public class InspectorSampleEditor : Editor
     private void ShowVerticalGroup()
     {
         EditorGUI.indentLevel += 1;
-        //垂直组
+        EditorGUILayout.BeginHorizontal();
+
+        //垂直组1
         EditorGUILayout.BeginVertical();
         //显示在控件前面的标签
         EditorGUILayout.PrefixLabel("Vertical Button Groups");
-        ShowButtons();
-
         EditorGUILayout.EndVertical();
+        
+        //垂直组2
+        EditorGUILayout.BeginVertical();
+        ShowButtons();
+        EditorGUILayout.EndVertical();
+
         EditorGUI.indentLevel -= 1;
+    }
+
+    private void ShowDisableGroup(bool isDisable)
+    {   
+        
+
+        //不可编辑组
+        EditorGUI.BeginDisabledGroup(isDisable);
+
+
+
+        EditorGUI.EndDisabledGroup();
     }
 
     private void ShowButtons()
@@ -123,6 +138,19 @@ public class InspectorSampleEditor : Editor
         {
         }
     }
+
+    private void SwitchButton(bool isSwitch)
+    {
+        if(GUILayout.Button(isSwitch ? "Enable":"Disable"))        
+        {
+            
+        }
+    }
+
+    private AnimFloat animFloat = new AnimFloat(0.01f);
+
+
+
 
 
 
