@@ -26,27 +26,27 @@ public class InspectorSampleEditor : Editor
     private void InspectorSetting(InspectorSample sample)
     {
         EditorGUILayout.HelpBox("If you need more setting", MessageType.Warning);
+
         //Foldout
         sample.editorData.isFoldout = EditorGUILayout.Foldout(sample.editorData.isFoldout, "Data Setting");
         if (sample.editorData.isFoldout)
         {
             EditorGUI.indentLevel += 1;
             //Toggle
-            sample.editorData.Toggle = EditorGUILayout.Toggle("Target Setting", sample.editorData.Toggle);
-            if (sample.editorData.Toggle)
+            sample.editorData.isSettingObj = EditorGUILayout.ToggleLeft("Target Setting", sample.editorData.isSettingObj);
+            if (sample.editorData.isSettingObj)
             {
                 EditorGUI.indentLevel += 2;
-                //ObjectField
-                sample.data.Target = (Transform)EditorGUILayout.ObjectField("Target", sample.data.Target, typeof(Transform), true);
+                TargetSetting(sample);
                 EditorGUI.indentLevel -= 2;
             }
 
-            sample.editorData.ToggleLeft = EditorGUILayout.ToggleLeft("Edit Data", sample.editorData.ToggleLeft);
-            if(sample.editorData.ToggleLeft)
+            sample.editorData.isSettingData = EditorGUILayout.ToggleLeft("Edit Data", sample.editorData.isSettingData);
+            if(sample.editorData.isSettingData)
             {
                 //判断BeginChangeCheck 和 EndChangeCheck之间的代码是否有改变
                 EditorGUI.BeginChangeCheck();
-                SettingData(sample);
+                DataSetting(sample);
                 if (EditorGUI.EndChangeCheck())
                 {
                     Debug.Log("Data has changed");
@@ -59,13 +59,30 @@ public class InspectorSampleEditor : Editor
 
         EditorGUILayout.LabelField("Group Setting");
 
+        EditorGUI.indentLevel += 1;
+        sample.editorData.isDisable = EditorGUILayout.Toggle("Disable", sample.editorData.isDisable);
+        ShowDisableGroup(sample.editorData.isDisable);
+        EditorGUI.indentLevel -= 1;
 
-
-        ShowHorizontalGroup();
-        ShowVerticalGroup();
+        ShowSingleChoice(sample);
     }
 
-    private void SettingData(InspectorSample sample)
+    #region EditorGUI
+
+    //ObjectField
+    private void TargetSetting(InspectorSample sample)
+    {
+        //Transform
+        sample.data.tfm = EditorGUILayout.ObjectField("Target", sample.data.tfm, typeof(Transform), true) as Transform;
+        //Material
+        sample.data.mat = EditorGUILayout.ObjectField("Material", sample.data.mat, typeof(Material), true) as Material;
+        //AudioClip
+        sample.data.audioClip = EditorGUILayout.ObjectField("AudioClip", sample.data.audioClip, typeof(AudioClip), true) as AudioClip;
+        //Texture
+        sample.data.tex = EditorGUILayout.ObjectField("Texture", sample.data.tex, typeof(Texture), true) as Texture;
+    }
+
+    private void DataSetting(InspectorSample sample)
     {
         EditorGUI.indentLevel += 2;
 
@@ -78,13 +95,12 @@ public class InspectorSampleEditor : Editor
         sample.data.range = EditorGUILayout.Slider("Range", sample.data.range, 0, 1);
         EditorGUILayout.MinMaxSlider("MinMaxValue", ref sample.minValue, ref sample.maxValue, 0, 1);
         sample.data.enumSample = (InspectorEnumSample)EditorGUILayout.EnumPopup("Enum Value", sample.data.enumSample);
-
         EditorGUI.indentLevel -= 2;
     }
 
     private void ShowHorizontalGroup()
     {
-        EditorGUI.indentLevel += 1;
+        EditorGUI.indentLevel += 2;
         //水平组
         EditorGUILayout.BeginHorizontal();
         //显示在控件前面的标签
@@ -92,12 +108,12 @@ public class InspectorSampleEditor : Editor
         ShowButtons();
 
         EditorGUILayout.EndHorizontal();
-        EditorGUI.indentLevel -= 1;
+        EditorGUI.indentLevel -= 2;
     }
 
     private void ShowVerticalGroup()
     {
-        EditorGUI.indentLevel += 1;
+        EditorGUI.indentLevel += 2;
         EditorGUILayout.BeginHorizontal();
 
         //垂直组1
@@ -111,19 +127,28 @@ public class InspectorSampleEditor : Editor
         ShowButtons();
         EditorGUILayout.EndVertical();
 
-        EditorGUI.indentLevel -= 1;
+        EditorGUILayout.EndHorizontal();
+        EditorGUI.indentLevel -= 2;
     }
 
     private void ShowDisableGroup(bool isDisable)
     {   
-        
-
         //不可编辑组
         EditorGUI.BeginDisabledGroup(isDisable);
 
-
+        ShowHorizontalGroup();
+        ShowVerticalGroup();
 
         EditorGUI.EndDisabledGroup();
+    }
+
+    #endregion
+
+    #region GUI
+
+    public GUILayoutOption[] GetFixLayout(float width, float height)
+    {
+        return new GUILayoutOption[]{ GUILayout.Width(width), GUILayout.Height(height) };
     }
 
     private void ShowButtons()
@@ -139,19 +164,29 @@ public class InspectorSampleEditor : Editor
         }
     }
 
-    private void SwitchButton(bool isSwitch)
+    private void ShowSingleChoice(InspectorSample sample)
     {
-        if(GUILayout.Button(isSwitch ? "Enable":"Disable"))        
+        if (GUILayout.Button(sample.editorData.isSwitchBtn ? "Hide" : "Show", GUILayout.Width(64)))
         {
-            
+            sample.editorData.isSwitchBtn = !sample.editorData.isSwitchBtn;
+        }
+
+        if(sample.editorData.isSwitchBtn)
+        {
+            GUILayout.Label("ToolBar");
+            sample.data.selectedIndex = GUILayout.Toolbar(sample.data.selectedIndex, new string[] { "1", "2", "3" });
+            GUILayout.Label("SelectionGrid");
+            sample.data.selectedIndex = GUILayout.SelectionGrid(sample.data.selectedIndex, new string[] { "1", "2", "3"}, 2);
+            sample.data.selectedIndex = GUILayout.SelectionGrid(sample.data.selectedIndex, new string[] { "1", "2", "3" }, 1, "PreferencesKeysElement");
         }
     }
 
+    
+
+    #endregion
+
+
     private AnimFloat animFloat = new AnimFloat(0.01f);
-
-
-
-
 
 
 }

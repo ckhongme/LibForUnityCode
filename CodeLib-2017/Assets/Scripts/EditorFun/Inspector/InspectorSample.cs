@@ -18,7 +18,11 @@ public class InspectorSample : MonoBehaviour
 
     public struct InspectorData
     {
-        public Transform Target;
+        public Transform tfm;
+        public Material mat;
+        public AudioClip audioClip;
+        public Texture tex;
+
         public int index;
         public float distance;
         public string text;
@@ -28,16 +32,18 @@ public class InspectorSample : MonoBehaviour
         public float range;
         public InspectorEnumSample enumSample;
         public Color color;
+
+        public int selectedIndex;
     }
 
     public struct InspectorEditorData
     {
         public bool isFoldout;
-        public bool Toggle;
-        public bool ToggleLeft;
+        public bool isSettingObj;
+        public bool isSettingData;
         public bool isDisable;
+        public bool isSwitchBtn;
     }
-
 }
 
 public enum InspectorEnumSample
