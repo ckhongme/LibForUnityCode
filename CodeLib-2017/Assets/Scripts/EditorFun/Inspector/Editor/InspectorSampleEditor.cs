@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
+using UnityEngine.Events;
 
 /// <summary>
 /// 属性页面扩展   （扩展类脚本需要放置在Editor文件夹下）
@@ -17,10 +18,14 @@ public class InspectorSampleEditor : Editor
 
         //通过target对象获取目标类
         InspectorSample _sample = target as InspectorSample;
+
+
+        EditorGUI.BeginChangeCheck();
         InspectorSetting(_sample);
-        //保存对目标类的修改
-        if (GUI.changed)
-            EditorUtility.SetDirty(target);
+
+        //判断BeginChangeCheck 和 EndChangeCheck之间的代码是否有改变
+        if (EditorGUI.EndChangeCheck())
+            EditorUtility.SetDirty(target);//保存对目标类的修改
     }
 
     private void InspectorSetting(InspectorSample sample)
@@ -28,58 +33,53 @@ public class InspectorSampleEditor : Editor
         EditorGUILayout.HelpBox("If you need more setting", MessageType.Warning);
 
         //Foldout
-        sample.editorData.isFoldout = EditorGUILayout.Foldout(sample.editorData.isFoldout, "Data Setting");
-        if (sample.editorData.isFoldout)
+        sample.editorData.isSettingData = EditorGUILayout.Foldout(sample.editorData.isSettingData, "Data Setting");
+        if (sample.editorData.isSettingData)
         {
             EditorGUI.indentLevel += 1;
-            //Toggle
+            //ToggleLeft
             sample.editorData.isSettingObj = EditorGUILayout.ToggleLeft("Target Setting", sample.editorData.isSettingObj);
             if (sample.editorData.isSettingObj)
             {
-                EditorGUI.indentLevel += 2;
                 TargetSetting(sample);
-                EditorGUI.indentLevel -= 2;
             }
 
-            sample.editorData.isSettingData = EditorGUILayout.ToggleLeft("Edit Data", sample.editorData.isSettingData);
-            if(sample.editorData.isSettingData)
+            //ToggleLeft
+            sample.editorData.isEditData = EditorGUILayout.ToggleLeft("Edit Data", sample.editorData.isEditData);
+            if(sample.editorData.isEditData)
             {
-                //判断BeginChangeCheck 和 EndChangeCheck之间的代码是否有改变
-                EditorGUI.BeginChangeCheck();
                 DataSetting(sample);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    Debug.Log("Data has changed");
-                }
             }
             EditorGUI.indentLevel -= 1;
         }
+        //Foldout
+        sample.editorData.isSettingGroup = EditorGUILayout.Foldout(sample.editorData.isSettingGroup, "Group Setting");
+        if (sample.editorData.isSettingGroup)
+        {
+            EditorGUI.indentLevel += 1;
+            sample.editorData.isDisable = EditorGUILayout.Toggle("Disable", sample.editorData.isDisable);
+            ShowDisableGroup(sample.editorData.isDisable);
+            EditorGUI.indentLevel -= 1;
+        }
+
         //空行
         EditorGUILayout.Space();
-
-        EditorGUILayout.LabelField("Group Setting");
-
-        EditorGUI.indentLevel += 1;
-        sample.editorData.isDisable = EditorGUILayout.Toggle("Disable", sample.editorData.isDisable);
-        ShowDisableGroup(sample.editorData.isDisable);
-        EditorGUI.indentLevel -= 1;
-
-        ShowSingleChoice(sample);
+        ShowFadeAnim(sample);
     }
 
     #region EditorGUI
 
-    //ObjectField
     private void TargetSetting(InspectorSample sample)
     {
-        //Transform
+        EditorGUI.indentLevel += 2;
+        //ObjectField
         sample.data.tfm = EditorGUILayout.ObjectField("Target", sample.data.tfm, typeof(Transform), true) as Transform;
-        //Material
         sample.data.mat = EditorGUILayout.ObjectField("Material", sample.data.mat, typeof(Material), true) as Material;
-        //AudioClip
         sample.data.audioClip = EditorGUILayout.ObjectField("AudioClip", sample.data.audioClip, typeof(AudioClip), true) as AudioClip;
         //Texture
         sample.data.tex = EditorGUILayout.ObjectField("Texture", sample.data.tex, typeof(Texture), true) as Texture;
+
+        EditorGUI.indentLevel -= 2;
     }
 
     private void DataSetting(InspectorSample sample)
@@ -142,6 +142,12 @@ public class InspectorSampleEditor : Editor
         EditorGUI.EndDisabledGroup();
     }
 
+    private void ShowScope()
+    {
+        //using(new EditorGUILayout.)
+    }
+
+
     #endregion
 
     #region GUI
@@ -164,30 +170,51 @@ public class InspectorSampleEditor : Editor
         }
     }
 
+    private void ShowSwitchBtn(ref bool flag, string str1, string str2)
+    {
+        if (GUILayout.Button(flag ? str1 : str2, GUILayout.Width(64)))
+        {
+            flag = !flag;
+        }
+    }
+
     private void ShowSingleChoice(InspectorSample sample)
     {
-        if (GUILayout.Button(sample.editorData.isSwitchBtn ? "Hide" : "Show", GUILayout.Width(64)))
-        {
-            sample.editorData.isSwitchBtn = !sample.editorData.isSwitchBtn;
-        }
-
         if(sample.editorData.isSwitchBtn)
         {
             GUILayout.Label("ToolBar");
             sample.data.selectedIndex = GUILayout.Toolbar(sample.data.selectedIndex, new string[] { "1", "2", "3" });
             GUILayout.Label("SelectionGrid");
             sample.data.selectedIndex = GUILayout.SelectionGrid(sample.data.selectedIndex, new string[] { "1", "2", "3"}, 2);
+            GUILayout.Label("PreferencesKeysElement");
             sample.data.selectedIndex = GUILayout.SelectionGrid(sample.data.selectedIndex, new string[] { "1", "2", "3" }, 1, "PreferencesKeysElement");
         }
     }
 
-    
-
     #endregion
-
 
     private AnimFloat animFloat = new AnimFloat(0.01f);
 
+    private void ShowFadeAnim(InspectorSample sample)
+    {
+        EditorGUI.BeginChangeCheck();
+
+        ShowSwitchBtn(ref sample.editorData.isSwitchBtn, "Hide", "Show");
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            animFloat.target = sample.editorData.isSwitchBtn ? 1 : 0.01f;
+            animFloat.speed = 2;
+
+            var _event = new UnityEvent();
+            _event.AddListener(() => Repaint());
+            animFloat.valueChanged = _event;
+        }
+
+        EditorGUILayout.BeginFadeGroup(animFloat.value);
+        ShowSingleChoice(sample);
+        EditorGUILayout.EndFadeGroup();
+    }
 
 }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// 需要扩展属性页面的目标类
@@ -16,6 +17,7 @@ public class InspectorSample : MonoBehaviour
     [HideInInspector]
     public InspectorEditorData editorData;
 
+    [Serializable]
     public struct InspectorData
     {
         public Transform tfm;
@@ -36,13 +38,18 @@ public class InspectorSample : MonoBehaviour
         public int selectedIndex;
     }
 
+    [Serializable]
     public struct InspectorEditorData
     {
-        public bool isFoldout;
-        public bool isSettingObj;
         public bool isSettingData;
+        public bool isSettingObj;
+        public bool isEditData;
+
+        public bool isSettingGroup;
         public bool isDisable;
         public bool isSwitchBtn;
+
+        public float animFloat;
     }
 }
 
