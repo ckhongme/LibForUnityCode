@@ -52,4 +52,9 @@ public class CamTool : MonoBehaviour
     {
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, endValue, Time.deltaTime * speed);
     }
+
+
+    #region ScreenShot
+
+
 }
