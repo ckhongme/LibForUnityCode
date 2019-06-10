@@ -57,7 +57,7 @@ public class EditorTool
 
     public static T Trans2Object<T>(FileInfo fileInfo) where T: Object
     {
-        string assetPath = SystemIOTool.GetFileInfoAssetPath(fileInfo);
+        string assetPath = SystemTool.GetFileInfoAssetPath(fileInfo);
         return LoadAsset<T>(assetPath);
     }
 

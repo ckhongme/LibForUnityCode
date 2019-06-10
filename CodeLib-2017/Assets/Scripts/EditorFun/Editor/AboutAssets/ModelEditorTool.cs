@@ -31,7 +31,7 @@ public class ModelEditorTool
 
     private static void SetReadWrite(bool isEnable)
     {
-        models = SystemIOTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, modelSuffix);
+        models = SystemTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, modelSuffix);
         for (int i = 0; i < models.Count; i++)
         {
             EditorUtility.DisplayProgressBar("SetRead&Write", "设置模型的Read&Write属性", 1f * i / models.Count);

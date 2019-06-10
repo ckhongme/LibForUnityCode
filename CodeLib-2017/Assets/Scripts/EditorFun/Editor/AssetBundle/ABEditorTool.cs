@@ -40,7 +40,7 @@ public class ABEditorTool : MonoBehaviour
     public static void ClearABName()
     {
         string folderPath = EditorTool.GetSelectionPath(true);
-        List<string> paths = SystemIOTool.GetTargetPaths(folderPath);
+        List<string> paths = SystemTool.GetTargetPaths(folderPath);
         int count = paths.Count;
         for (int i = 0; i < paths.Count; i++)
         {
@@ -72,7 +72,7 @@ public class ABEditorTool : MonoBehaviour
     /// <param name="suffixs">要求的后缀</param>
     public static void BuildPartABs(string assetPath, string outputPath, string[] suffixs = null)
     {
-        List<string> paths = SystemIOTool.GetTargetPaths(assetPath, false, suffixs);
+        List<string> paths = SystemTool.GetTargetPaths(assetPath, false, suffixs);
         BuildTargetAB(paths, outputPath);
         EditorUtility.ClearProgressBar();
     }

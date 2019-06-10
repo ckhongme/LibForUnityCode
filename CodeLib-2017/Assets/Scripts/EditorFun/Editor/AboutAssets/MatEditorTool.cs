@@ -39,10 +39,10 @@ public class MatEditorTool
     private static void SetTex(bool isAdd)
     {
         string path = EditorTool.GetSelectionPath(true);
-        SystemIOTool.GetFileInfoList(path, mats, matSuffix);
+        SystemTool.GetFileInfoList(path, mats, matSuffix);
 
         if (isAdd)
-            SystemIOTool.GetFileInfoList(path,texs, texSuffix);
+            SystemTool.GetFileInfoList(path,texs, texSuffix);
 
         for (int i = 0; i < mats.Count; i++)
         {

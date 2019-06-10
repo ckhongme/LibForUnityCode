@@ -32,7 +32,7 @@ public class TexEditorTool
     /// </summary>
     private static void SetMipMaps(bool isOpen)
     {
-        texs = SystemIOTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, texSuffix);
+        texs = SystemTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, texSuffix);
         for (int i = 0; i < texs.Count; i++)
         {
             EditorUtility.DisplayProgressBar("SetMipMaps", "设置贴图的MipMaps属性", 1f * i / texs.Count);
