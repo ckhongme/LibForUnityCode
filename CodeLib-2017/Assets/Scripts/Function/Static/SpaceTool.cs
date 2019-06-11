@@ -43,7 +43,13 @@ namespace K
         public static float GetAngle(Vector3 from, Vector3 to, Vector3 normal, bool isClockwise = false)
         {
             var angle = Vector3.SignedAngle(Vector3.ProjectOnPlane(from, to), Vector3.ProjectOnPlane(to, normal), normal);
-            return isClockwise ? -angle :angle;
+            return isClockwise ? angle : -angle;
+
+            //Vector3 cross = Vector3.Cross(from, to);
+            //float value = Vector3.Dot(cross, normal);
+            //float angle = Vector3.Angle(from, to);
+            //angle = value > 0 ? -angle : angle;
+            //return isClockwise ? -angle : angle;
         }
 
         public static float GetPositiveAngle(Vector3 from, Vector3 to, Vector3 normal, bool isClockwise = false)
