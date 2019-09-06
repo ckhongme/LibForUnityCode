@@ -6,12 +6,25 @@ namespace K
 {
     public class CamTool : MonoBehaviour
     {
-        public static CamTool Instance;
+        private static CamTool instance;
+        public static CamTool Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    var obj = new GameObject("CamTool");
+                    GameObject.DontDestroyOnLoad(obj);
+                    instance = obj.AddComponent<CamTool>();
+                }
+                return instance;
+            }
+        }
 
         private void Awake()
         {
             if (Instance == null)
-                Instance = this;
+                instance = this;
             else
             {
                 if (Instance != this)
@@ -19,6 +32,11 @@ namespace K
                     Destroy(gameObject);
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            instance = null;
         }
 
         public Vector2 GetScreenPoint(Vector3 pos)

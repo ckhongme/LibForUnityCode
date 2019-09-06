@@ -5,12 +5,25 @@ using UnityEngine.UI;
 
 public class UguiTool : MonoBehaviour
 {
-    public static UguiTool Instance;
+    private static UguiTool instance;
+    public static UguiTool Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                var obj = new GameObject("UguiTool");
+                GameObject.DontDestroyOnLoad(obj);
+                instance = obj.AddComponent<UguiTool>();
+            }
+            return instance;
+        }
+    }
 
     private void Awake()
     {
         if (Instance == null)
-            Instance = this;
+            instance = this;
         else
         {
             if (Instance == this)
@@ -21,7 +34,7 @@ public class UguiTool : MonoBehaviour
     }
 
     /// <summary>
-    /// 设置输入框的
+    /// 设置输入框的类型
     /// </summary>
     public void SetContentType(InputField ifd, bool isPassword)
     {

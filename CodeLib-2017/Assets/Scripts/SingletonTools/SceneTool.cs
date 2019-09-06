@@ -6,14 +6,27 @@ namespace K
 {
     public class SceneTool : MonoBehaviour
     {
-        public static SceneTool Instance;
+        private static SceneTool instance;
+        public static SceneTool Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    var obj = new GameObject("SceneTool");
+                    GameObject.DontDestroyOnLoad(obj);
+                    instance = obj.AddComponent<SceneTool>();
+                }
+                return instance;
+            }
+        }
         AsyncOperation async;
 
         private void Awake()
         {
             if (Instance == null)
             {
-                Instance = this;
+                instance = this;
             }
             else
             {
