@@ -18,7 +18,7 @@ namespace K
                 {
                     var obj = new GameObject("ObjPool");
                     GameObject.DontDestroyOnLoad(obj);
-                    instance = obj.AddComponent<ObjPool>();
+                    obj.AddComponent<ObjPool>();
                 }
                 return instance;
             }
@@ -29,17 +29,8 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
             _libs = new Dictionary<string, List<GameObject>>();
         }
 

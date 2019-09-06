@@ -18,7 +18,7 @@ namespace K
                 {
                     var obj = new GameObject("SoundTool");
                     GameObject.DontDestroyOnLoad(obj);
-                    instance = obj.AddComponent<SoundTool>();
+                    obj.AddComponent<SoundTool>();
                 }
                 return instance;
             }
@@ -34,17 +34,8 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
             _Init();
         }
 

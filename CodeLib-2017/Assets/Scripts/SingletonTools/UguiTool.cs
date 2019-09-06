@@ -14,7 +14,7 @@ public class UguiTool : MonoBehaviour
             {
                 var obj = new GameObject("UguiTool");
                 GameObject.DontDestroyOnLoad(obj);
-                instance = obj.AddComponent<UguiTool>();
+                obj.AddComponent<UguiTool>();
             }
             return instance;
         }
@@ -22,15 +22,8 @@ public class UguiTool : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            instance = this;
-        else
-        {
-            if (Instance == this)
-            {
-                Destroy(gameObject);
-            }
-        }
+        if (instance == null) instance = this;
+        else if (instance != this) DestroyImmediate(gameObject);
     }
 
     /// <summary>

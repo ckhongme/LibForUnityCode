@@ -21,7 +21,7 @@ namespace K
                 {
                     var obj = new GameObject("WebTool");
                     GameObject.DontDestroyOnLoad(obj);
-                    instance = obj.AddComponent<WebTool>();
+                    obj.AddComponent<WebTool>();
                 }
                 return instance;
             }
@@ -29,17 +29,8 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
         }
 
         private void OnDestroy()

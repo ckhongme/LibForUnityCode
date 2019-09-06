@@ -15,7 +15,7 @@ namespace K
                 {
                     var obj = new GameObject("SceneTool");
                     GameObject.DontDestroyOnLoad(obj);
-                    instance = obj.AddComponent<SceneTool>();
+                    obj.AddComponent<SceneTool>();
                 }
                 return instance;
             }
@@ -24,17 +24,8 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
         }
 
         public void LoadScene(string sceneName)

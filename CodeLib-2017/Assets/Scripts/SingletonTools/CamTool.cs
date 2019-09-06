@@ -15,7 +15,7 @@ namespace K
                 {
                     var obj = new GameObject("CamTool");
                     GameObject.DontDestroyOnLoad(obj);
-                    instance = obj.AddComponent<CamTool>();
+                    obj.AddComponent<CamTool>();
                 }
                 return instance;
             }
@@ -23,15 +23,8 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-                instance = this;
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
         }
 
         private void OnDestroy()

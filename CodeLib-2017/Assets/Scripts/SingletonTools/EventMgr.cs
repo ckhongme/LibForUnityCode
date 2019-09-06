@@ -17,7 +17,7 @@ namespace K
                 {
                     var obj = new GameObject("EventMgr");
                     GameObject.DontDestroyOnLoad(obj);
-                    instance = obj.AddComponent<EventMgr>();
+                    obj.AddComponent<EventMgr>();
                 }
                 return instance;
             }
@@ -27,17 +27,8 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
             _listeners = new Dictionary<string, List<EventListener>>();
         }
 
