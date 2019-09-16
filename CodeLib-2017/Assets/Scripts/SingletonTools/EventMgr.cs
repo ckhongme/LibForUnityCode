@@ -13,7 +13,7 @@ namespace K
         {
             get
             {
-                if (instance == null)
+                if (instance == null && _IsAppQuit == false)
                 {
                     var obj = new GameObject("EventMgr");
                     GameObject.DontDestroyOnLoad(obj);
@@ -34,7 +34,11 @@ namespace K
 
         private void OnDestroy()
         {
-            instance = null;
+            if (instance != null)
+            {
+                _IsAppQuit = true;
+                instance = null;
+            }
         }
 
         public void AddListener(string key, EventListener listener)
