@@ -42,4 +42,22 @@ public class UguiTool : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 设置下拉菜单内容
+    /// </summary>
+    /// <param name="list">选项列表</param>
+    /// <param name="defaultIndex">默认选项</param>
+    public void SetDropdown(Dropdown dropdowm, List<string> list, int defaultIndex = 0)
+    {
+        dropdown.ClearOptions();
+        foreach (var item in list)
+        {
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            option.text = item;
+            dropdown.options.Add(option);
+        }
+        dropdown.value = defaultIndex;
+        dropdown.captionText.text = dropdown.options[defaultIndex].text;
+    }
+
 }
