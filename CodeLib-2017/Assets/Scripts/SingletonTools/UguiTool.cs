@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -49,15 +50,15 @@ public class UguiTool : MonoBehaviour
     /// <param name="defaultIndex">默认选项</param>
     public void SetDropdown(Dropdown dropdowm, List<string> list, int defaultIndex = 0)
     {
-        dropdown.ClearOptions();
+        dropdowm.ClearOptions();
         foreach (var item in list)
         {
             Dropdown.OptionData option = new Dropdown.OptionData();
             option.text = item;
-            dropdown.options.Add(option);
+            dropdowm.options.Add(option);
         }
-        dropdown.value = defaultIndex;
-        dropdown.captionText.text = dropdown.options[defaultIndex].text;
+        dropdowm.value = defaultIndex;
+        dropdowm.captionText.text = dropdowm.options[defaultIndex].text;
     }
 
 }

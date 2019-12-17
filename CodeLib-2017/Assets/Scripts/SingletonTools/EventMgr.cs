@@ -24,6 +24,7 @@ namespace K
         }
 
         private Dictionary<string, List<EventListener>> _listeners;
+        private static bool _IsAppQuit;
 
         private void Awake()
         {
