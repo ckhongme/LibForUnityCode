@@ -47,6 +47,11 @@ namespace K
             if (curPageIndex > totalPageNum) curPageIndex = totalPageNum;
         }
 
+        public void Reset()
+        {
+            curPageIndex = 1;
+        }
+
         #region 翻页
 
         public bool HasLastPage { get { return curPageIndex > 1; } }             //是否有上一页

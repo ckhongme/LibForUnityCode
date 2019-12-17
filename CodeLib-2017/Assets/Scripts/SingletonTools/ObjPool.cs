@@ -9,29 +9,34 @@ namespace K
     /// </summary>
     public class ObjPool : MonoBehaviour
     {
-        public static ObjPool Instance;
+        private static ObjPool instance;
+        public static ObjPool Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    var obj = new GameObject("ObjPool");
+                    GameObject.DontDestroyOnLoad(obj);
+                    obj.AddComponent<ObjPool>();
+                }
+                return instance;
+            }
+        }
+
         private Dictionary<string, List<GameObject>> _libs;
         private Transform _container;
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
             _libs = new Dictionary<string, List<GameObject>>();
         }
 
         private void OnDestroy()
         {
-            Instance = null;
+            instance = null;
         }
 
         public void SetContainer(Transform container)

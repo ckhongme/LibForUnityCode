@@ -5,23 +5,29 @@ using UnityEngine.UI;
 
 public class UguiTool : MonoBehaviour
 {
-    public static UguiTool Instance;
-
-    private void Awake()
+    private static UguiTool instance;
+    public static UguiTool Instance
     {
-        if (Instance == null)
-            Instance = this;
-        else
+        get
         {
-            if (Instance == this)
+            if (instance == null)
             {
-                Destroy(gameObject);
+                var obj = new GameObject("UguiTool");
+                GameObject.DontDestroyOnLoad(obj);
+                obj.AddComponent<UguiTool>();
             }
+            return instance;
         }
     }
 
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else if (instance != this) DestroyImmediate(gameObject);
+    }
+
     /// <summary>
-    /// 设置输入框的
+    /// 设置输入框的类型
     /// </summary>
     public void SetContentType(InputField ifd, bool isPassword)
     {
@@ -34,6 +40,24 @@ public class UguiTool : MonoBehaviour
 
             EventSystem.current.SetSelectedGameObject(ifd.gameObject, new BaseEventData(EventSystem.current));
         }
+    }
+
+    /// <summary>
+    /// 设置下拉菜单内容
+    /// </summary>
+    /// <param name="list">选项列表</param>
+    /// <param name="defaultIndex">默认选项</param>
+    public void SetDropdown(Dropdown dropdowm, List<string> list, int defaultIndex = 0)
+    {
+        dropdown.ClearOptions();
+        foreach (var item in list)
+        {
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            option.text = item;
+            dropdown.options.Add(option);
+        }
+        dropdown.value = defaultIndex;
+        dropdown.captionText.text = dropdown.options[defaultIndex].text;
     }
 
 }

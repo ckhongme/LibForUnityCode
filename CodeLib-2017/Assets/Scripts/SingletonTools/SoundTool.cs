@@ -9,7 +9,20 @@ namespace K
     /// </summary>
     public class SoundTool : MonoBehaviour
     {
-        public static SoundTool Instance { get; private set; }
+        private static SoundTool instance;
+        public static SoundTool Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    var obj = new GameObject("SoundTool");
+                    GameObject.DontDestroyOnLoad(obj);
+                    obj.AddComponent<SoundTool>();
+                }
+                return instance;
+            }
+        }
 
         private int maxCount = 3;
         private int curIndex = 0;
@@ -21,24 +34,14 @@ namespace K
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
-
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
             _Init();
         }
 
         private void OnDestroy()
         {
-            Instance = null;
+            instance = null;
         }
 
         private void _Init()
@@ -58,7 +61,6 @@ namespace K
                 audios[i] = audio;
             }
         }
-
 
         #region volume
 

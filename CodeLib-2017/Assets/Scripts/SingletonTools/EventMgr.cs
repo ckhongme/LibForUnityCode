@@ -8,28 +8,37 @@ namespace K
 
     public class EventMgr : MonoBehaviour
     {
-        public static EventMgr Instance;
+        private static EventMgr instance;
+        public static EventMgr Instance
+        {
+            get
+            {
+                if (instance == null && _IsAppQuit == false)
+                {
+                    var obj = new GameObject("EventMgr");
+                    GameObject.DontDestroyOnLoad(obj);
+                    obj.AddComponent<EventMgr>();
+                }
+                return instance;
+            }
+        }
+
         private Dictionary<string, List<EventListener>> _listeners;
 
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                if (Instance != this)
-                {
-                    Destroy(gameObject);
-                }
-            }
-
+            if (instance == null) instance = this;
+            else if (instance != this) DestroyImmediate(gameObject);
             _listeners = new Dictionary<string, List<EventListener>>();
         }
 
         private void OnDestroy()
         {
+            if (instance != null)
+            {
+                _IsAppQuit = true;
+                instance = null;
+            }
         }
 
         public void AddListener(string key, EventListener listener)
