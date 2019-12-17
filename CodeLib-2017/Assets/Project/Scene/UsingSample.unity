@@ -307,6 +307,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minValue: 0.05158283
   maxValue: 0.12220964
+  data:
+    tfm: {fileID: 0}
+    mat: {fileID: 0}
+    audioClip: {fileID: 0}
+    tex: {fileID: 0}
+    index: 0
+    distance: 0
+    text: 
+    pos: {x: 0, y: 0, z: 0}
+    pos2D: {x: 0, y: 0}
+    intRange: 0
+    range: 0
+    enumSample: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    selectedIndex: 0
+  editorData:
+    isSettingData: 0
+    isSettingObj: 0
+    isEditData: 0
+    isSettingGroup: 0
+    isDisable: 0
+    isSwitchBtn: 0
+    animFloat: 0
 --- !u!1 &1956098250
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,4 +410,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2091931455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2091931457}
+  - component: {fileID: 2091931456}
+  m_Layer: 0
+  m_Name: AlgorithmTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2091931456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2091931455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974133d00768ce143839bf5977143a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2091931457
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2091931455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 640, y: 308, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
