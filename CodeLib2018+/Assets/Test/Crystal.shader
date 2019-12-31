@@ -11,11 +11,17 @@
 		
 	SubShader
 	{
+		
 		Tags { "RenderType" = "Transparent" "Queue" = "Transparent" "IgnoreProjector" = "True"}
+		
+		//ZTest off
+		ZWrite Off
 
 		CGPROGRAM
 			
 		#pragma surface surf Lambert alpha noambient nolightmap nodirlightmap novertexlights
+
+
 			
 		struct Input 
 		{

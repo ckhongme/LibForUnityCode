@@ -214,5 +214,4 @@ public class SystemTool
             Debug.Log("打印机连接有误" + ex.Message);
         }
     }
-
 }
