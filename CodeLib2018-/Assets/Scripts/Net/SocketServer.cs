@@ -1,49 +1,52 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 
-public class UdpServer : MonoBehaviour
+public class SocketServer : MonoBehaviour
 {
-    private const int port = 8088;
-    private static string IpStr = "192.168.50.252";
-    private static Socket serverSocket;
-    private static byte[] result = new byte[1024];
+    public SocketServerType server;
+    public Action<byte[], IPEndPoint, int> ReceiveData;
 
-    static void Main(string[] args)
+    private const int port = 8088;
+    private string IpStr = "192.168.50.252";
+    private Socket serverSocket;
+    private byte[] result = new byte[1024];
+
+    private void Start()
     {
         IPAddress ipa = IPAddress.Parse(IpStr);
         IPEndPoint ipe = new IPEndPoint(ipa, port);
 
-        StartUDPServer(ipe);
-        //StartTCPServer(ipe);
+        if(server == SocketServerType.UdpServer)
+            StartUDPServer(ipe);
+        else
+            StartTCPServer(ipe);
     }
 
     #region TCP
 
-    private static void StartTCPServer(IPEndPoint ipe)
+    private void StartTCPServer(IPEndPoint ipe)
     {
         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
         serverSocket.Bind(ipe);
         serverSocket.Listen(10);
-        Console.WriteLine("启动监听{0}成功", serverSocket.LocalEndPoint.ToString());
+        Debug.Log(string.Format("启动Tcp监听{0}成功 ", serverSocket.LocalEndPoint.ToString()));
 
         Thread thread = new Thread(TCPClientListener);
         thread.Start();
     }
 
-    private static void TCPClientListener()
+    private void TCPClientListener()
     {
         while (true)
         {
             //为新的客户端连接创建一个Socket对象
             Socket clientSocket = serverSocket.Accept();
 
-            Console.WriteLine("客户端{0}成功连接", clientSocket.RemoteEndPoint.ToString());
+            Debug.Log(string.Format("客户端{0}成功连接", clientSocket.RemoteEndPoint.ToString()));
             //向连接的客户端发送连接成功的数据
             clientSocket.Send(new byte[2]);
             //每个客户端连接创建一个线程来接受该客户端发送的消息
@@ -52,7 +55,7 @@ public class UdpServer : MonoBehaviour
         }
     }
 
-    private static void TCPRecieveMessage(object clientSocket)
+    private void TCPRecieveMessage(object clientSocket)
     {
         Socket mClientSocket = (Socket)clientSocket;
         while (true)
@@ -76,26 +79,44 @@ public class UdpServer : MonoBehaviour
 
     #endregion
 
-    #region UDP
 
-    private static void StartUDPServer(IPEndPoint ipe)
+    #region UDP ReceiveData
+
+    private void StartUDPServer(IPEndPoint ipe)
     {
         serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         serverSocket.Bind(ipe);
-        Console.WriteLine("启动监听{0}成功", serverSocket.LocalEndPoint.ToString());
-        Thread thread = new Thread(ReceiveInfo);
+        Debug.Log(string.Format("启动Udp服务器 {0}成功", serverSocket.LocalEndPoint.ToString()));
+        Thread thread = new Thread(UdpReceiveInfo);
         thread.Start();
     }
 
-    private static void ReceiveInfo()
+    private void UdpReceiveInfo()
     {
         while (true)
         {
-            EndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            byte[] data = new byte[1024];
-            int length = serverSocket.ReceiveFrom(data, ref remoteEndPoint);
-            string message = Encoding.UTF8.GetString(data, 0, length);
-            Console.WriteLine("从IP：" + (remoteEndPoint as IPEndPoint).Address.ToString() + " " + (remoteEndPoint as IPEndPoint).Port + "收到了数据：" + message);
+            EndPoint endPoint = new IPEndPoint(IPAddress.Any, 0);
+            byte[] data = new byte[102400];
+            int length = serverSocket.ReceiveFrom(data, ref endPoint);
+            if(ReceiveData!=null)
+                ReceiveData.Invoke(data, (endPoint as IPEndPoint), length);
         }
     }
+
+    #endregion
+
+    private void OnDestroy()
+    {
+        if (serverSocket.Connected)
+        {
+            serverSocket.Shutdown(SocketShutdown.Both);
+            serverSocket.Close();
+        }
+    }
+}
+
+public enum SocketServerType
+{
+    TcpServer,
+    UdpServer,
 }

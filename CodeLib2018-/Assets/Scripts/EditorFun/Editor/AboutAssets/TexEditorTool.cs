@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
+using K.system;
 
-namespace K
+namespace K.unityEditor
 {
     /// <summary>
     /// 贴图资源管理
@@ -34,7 +35,7 @@ namespace K
         /// </summary>
         private static void SetMipMaps(bool isOpen)
         {
-            texs = SystemTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, texSuffix);
+            texs = SystemIOTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, texSuffix);
             for (int i = 0; i < texs.Count; i++)
             {
                 EditorUtility.DisplayProgressBar("SetMipMaps", "设置贴图的MipMaps属性", 1f * i / texs.Count);

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
+using K.system;
 
-namespace K
+namespace K.unityEditor
 {
     /// <summary>
     /// 模型资源管理
@@ -33,7 +32,7 @@ namespace K
 
         private static void SetReadWrite(bool isEnable)
         {
-            models = SystemTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, modelSuffix);
+            models = SystemIOTool.GetTargetPaths(EditorTool.GetSelectionPath(), false, modelSuffix);
             for (int i = 0; i < models.Count; i++)
             {
                 EditorUtility.DisplayProgressBar("SetRead&Write", "设置模型的Read&Write属性", 1f * i / models.Count);

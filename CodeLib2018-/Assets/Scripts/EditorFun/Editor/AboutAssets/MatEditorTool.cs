@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using K.system;
 
-namespace K
+namespace K.unityEditor
 {
     /// <summary>
     /// 材质编辑器 （添加贴图&移除贴图）
@@ -41,10 +41,10 @@ namespace K
         private static void SetTex(bool isAdd)
         {
             string path = EditorTool.GetSelectionPath(true);
-            SystemTool.GetFileInfoList(path, mats, matSuffix);
+            SystemIOTool.GetFileInfoList(path, mats, matSuffix);
 
             if (isAdd)
-                SystemTool.GetFileInfoList(path, texs, texSuffix);
+                SystemIOTool.GetFileInfoList(path, texs, texSuffix);
 
             for (int i = 0; i < mats.Count; i++)
             {

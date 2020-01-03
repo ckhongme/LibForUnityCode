@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.IO;
-using System.Collections.Generic;
+using K.system;
 
-namespace K
+namespace K.unityEditor
 {
     /// <summary>
     /// 编辑器助手
@@ -101,7 +101,7 @@ namespace K
 
         public static T Trans2Object<T>(FileInfo fileInfo) where T : Object
         {
-            string assetPath = SystemTool.GetFileInfoAssetPath(fileInfo);
+            string assetPath = SystemIOTool.GetFileInfoAssetPath(fileInfo);
             return LoadAsset<T>(assetPath);
         }
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace K
+using K.system;
+
+namespace K.unityEditor
 {
     public class ABEditorTool : MonoBehaviour
     {
@@ -42,7 +44,7 @@ namespace K
         public static void ClearABName()
         {
             string folderPath = EditorTool.GetSelectionPath(true);
-            List<string> paths = SystemTool.GetTargetPaths(folderPath);
+            List<string> paths = SystemIOTool.GetTargetPaths(folderPath);
             int count = paths.Count;
             for (int i = 0; i < paths.Count; i++)
             {
@@ -74,7 +76,7 @@ namespace K
         /// <param name="suffixs">要求的后缀</param>
         public static void BuildPartABs(string assetPath, string outputPath, string[] suffixs = null)
         {
-            List<string> paths = SystemTool.GetTargetPaths(assetPath, false, suffixs);
+            List<string> paths = SystemIOTool.GetTargetPaths(assetPath, false, suffixs);
             BuildTargetAB(paths, outputPath);
             EditorUtility.ClearProgressBar();
         }
