@@ -8,11 +8,11 @@ namespace K.system
     public class SystemNetTool
     {
         /// <summary>
-        /// 获取本机的 IP地址
+        /// 获取本机的 私有IP地址
         /// </summary>
         /// <param name="addressFamily"> IPv4 = InterNetwork,  IPv6 = InterNetworkV6 </param>
         /// <returns></returns>
-        public static string GetIpStr(AddressFamily addressFamily = AddressFamily.InterNetwork)
+        public static string GetPrivateIpStr(AddressFamily addressFamily = AddressFamily.InterNetwork)
         {
             var adapter = GetActiveAdapter(addressFamily);
             if (adapter == null) return null;
@@ -81,6 +81,16 @@ namespace K.system
                         return adapter;
                 }
             }
+            return null;
+        }
+
+
+        /// <summary>
+        /// 获取本机的 公有IP地址
+        /// </summary>
+        /// <returns></returns>
+        public static string GetPublicIpStr()
+        {
             return null;
         }
     }
