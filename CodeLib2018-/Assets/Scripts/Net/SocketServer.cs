@@ -79,7 +79,6 @@ public class SocketServer : MonoBehaviour
 
     #endregion
 
-
     #region UDP ReceiveData
 
     private void StartUDPServer(IPEndPoint ipe)

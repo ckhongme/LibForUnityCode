@@ -1,0 +1,489 @@
+{
+  "keys": [
+    {
+      "keyNum": 4,
+      "keyName": "a",
+      "keyCode": "A"
+    },
+    {
+      "keyNum": 5,
+      "keyName": "b",
+      "keyCode": "B"
+    },
+    {
+      "keyNum": 6,
+      "keyName": "c",
+      "keyCode": "C"
+    },
+    {
+      "keyNum": 7,
+      "keyName": "d",
+      "keyCode": "D"
+    },
+    {
+      "keyNum": 8,
+      "keyName": "e",
+      "keyCode": "E"
+    },
+    {
+      "keyNum": 9,
+      "keyName": "f",
+      "keyCode": "F"
+    },
+    {
+      "keyNum": 10,
+      "keyName": "g",
+      "keyCode": "G"
+    },
+    {
+      "keyNum": 11,
+      "keyName": "h",
+      "keyCode": "H"
+    },
+    {
+      "keyNum": 12,
+      "keyName": "i",
+      "keyCode": "I"
+    },
+    {
+      "keyNum": 13,
+      "keyName": "j",
+      "keyCode": "J"
+    },
+    {
+      "keyNum": 14,
+      "keyName": "k",
+      "keyCode": "K"
+    },
+    {
+      "keyNum": 15,
+      "keyName": "l",
+      "keyCode": "L"
+    },
+    {
+      "keyNum": 16,
+      "keyName": "m",
+      "keyCode": "M"
+    },
+    {
+      "keyNum": 17,
+      "keyName": "n",
+      "keyCode": "N"
+    },
+    {
+      "keyNum": 18,
+      "keyName": "o",
+      "keyCode": "O"
+    },
+    {
+      "keyNum": 19,
+      "keyName": "p",
+      "keyCode": "P"
+    },
+    {
+      "keyNum": 20,
+      "keyName": "q",
+      "keyCode": "Q"
+    },
+    {
+      "keyNum": 21,
+      "keyName": "r",
+      "keyCode": "R"
+    },
+    {
+      "keyNum": 22,
+      "keyName": "s",
+      "keyCode": "S"
+    },
+    {
+      "keyNum": 23,
+      "keyName": "t",
+      "keyCode": "T"
+    },
+    {
+      "keyNum": 24,
+      "keyName": "u",
+      "keyCode": "U"
+    },
+    {
+      "keyNum": 25,
+      "keyName": "v",
+      "keyCode": "V"
+    },
+    {
+      "keyNum": 26,
+      "keyName": "w",
+      "keyCode": "W"
+    },
+    {
+      "keyNum": 27,
+      "keyName": "x",
+      "keyCode": "X"
+    },
+    {
+      "keyNum": 28,
+      "keyName": "y",
+      "keyCode": "Y"
+    },
+    {
+      "keyNum": 29,
+      "keyName": "z",
+      "keyCode": "Z"
+    },
+    {
+      "keyNum": 30,
+      "keyName": 1,
+      "keyCode": "Alpha1"
+    },
+    {
+      "keyNum": 31,
+      "keyName": 2,
+      "keyCode": "Alpha2"
+    },
+    {
+      "keyNum": 32,
+      "keyName": 3,
+      "keyCode": "Alpha3"
+    },
+    {
+      "keyNum": 33,
+      "keyName": 4,
+      "keyCode": "Alpha4"
+    },
+    {
+      "keyNum": 34,
+      "keyName": 5,
+      "keyCode": "Alpha5"
+    },
+    {
+      "keyNum": 35,
+      "keyName": 6,
+      "keyCode": "Alpha6"
+    },
+    {
+      "keyNum": 36,
+      "keyName": 7,
+      "keyCode": "Alpha7"
+    },
+    {
+      "keyNum": 37,
+      "keyName": 8,
+      "keyCode": "Alpha8"
+    },
+    {
+      "keyNum": 38,
+      "keyName": 9,
+      "keyCode": "Alpha9"
+    },
+    {
+      "keyNum": 39,
+      "keyName": 0,
+      "keyCode": "Alpha0"
+    },
+    {
+      "keyNum": 40,
+      "keyName": "ENTER",
+      "keyCode": "ENTER"
+    },
+    {
+      "keyNum": 41,
+      "keyName": "ESCAPE",
+      "keyCode": "Escape"
+    },
+    {
+      "keyNum": 42,
+      "keyName": "DELETE",
+      "keyCode": "Delete"
+    },
+    {
+      "keyNum": 43,
+      "keyName": "Tab",
+      "keyCode": "Tab"
+    },
+    {
+      "keyNum": 44,
+      "keyName": "Spacebar",
+      "keyCode": "Space"
+    },
+    {
+      "keyNum": 45,
+      "keyName": "-",
+      "keyCode": "Minus"
+    },
+    {
+      "keyNum": 46,
+      "keyName": "=",
+      "keyCode": "Equals"
+    },
+    {
+      "keyNum": 47,
+      "keyName": "[",
+      "keyCode": "LeftBracket"
+    },
+    {
+      "keyNum": 48,
+      "keyName": "]",
+      "keyCode": "RightBracket"
+    },
+    {
+      "keyNum": 49,
+      "keyName": "\\",
+      "keyCode": "Backslash"
+    },
+    {
+      "keyNum": 50,
+      "keyName": "Non-US",
+      "keyCode": ""
+    },
+    {
+      "keyNum": 51,
+      "keyName": ";",
+      "keyCode": "Semicolon"
+    },
+    {
+      "keyNum": 52,
+      "keyName": "‘",
+      "keyCode": "BackQuote"
+    },
+    {
+      "keyNum": 53,
+      "keyName": "Grave",
+      "keyCode": ""
+    },
+    {
+      "keyNum": 54,
+      "keyName": ",",
+      "keyCode": "Comma"
+    },
+    {
+      "keyNum": 55,
+      "keyName": ".",
+      "keyCode": "Period"
+    },
+    {
+      "keyNum": 56,
+      "keyName": "/",
+      "keyCode": "Slash"
+    },
+    {
+      "keyNum": 57,
+      "keyName": "Caps",
+      "keyCode": "CapsLock"
+    },
+    {
+      "keyNum": 58,
+      "keyName": "F1",
+      "keyCode": "F1"
+    },
+    {
+      "keyNum": 59,
+      "keyName": "F2",
+      "keyCode": "F2"
+    },
+    {
+      "keyNum": 60,
+      "keyName": "F3",
+      "keyCode": "F3"
+    },
+    {
+      "keyNum": 61,
+      "keyName": "F4",
+      "keyCode": "F4"
+    },
+    {
+      "keyNum": 62,
+      "keyName": "F5",
+      "keyCode": "F5"
+    },
+    {
+      "keyNum": 63,
+      "keyName": "F6",
+      "keyCode": "F6"
+    },
+    {
+      "keyNum": 64,
+      "keyName": "F7",
+      "keyCode": "F7"
+    },
+    {
+      "keyNum": 65,
+      "keyName": "F8",
+      "keyCode": "F8"
+    },
+    {
+      "keyNum": 66,
+      "keyName": "F9",
+      "keyCode": "F9"
+    },
+    {
+      "keyNum": 67,
+      "keyName": "F10",
+      "keyCode": "F10"
+    },
+    {
+      "keyNum": 68,
+      "keyName": "F11",
+      "keyCode": "F11"
+    },
+    {
+      "keyNum": 69,
+      "keyName": "F12",
+      "keyCode": "F12"
+    },
+    {
+      "keyNum": 70,
+      "keyName": "PrintScreen",
+      "keyCode": ""
+    },
+    {
+      "keyNum": 71,
+      "keyName": "Scroll",
+      "keyCode": "ScrollLock"
+    },
+    {
+      "keyNum": 79,
+      "keyName": "RightArrow",
+      "keyCode": "RightArrow"
+    },
+    {
+      "keyNum": 80,
+      "keyName": "LeftArrow",
+      "keyCode": "LeftArrow"
+    },
+    {
+      "keyNum": 81,
+      "keyName": "DownArrow",
+      "keyCode": "DownArrow"
+    },
+    {
+      "keyNum": 82,
+      "keyName": "UpArrow",
+      "keyCode": "UpArrow"
+    },
+    {
+      "keyNum": 83,
+      "keyName": "NumLock",
+      "keyCode": "Numlock"
+    },
+    {
+      "keyNum": 84,
+      "keyName": "Keypad/",
+      "keyCode": "KeypadDivide"
+    },
+    {
+      "keyNum": 85,
+      "keyName": "Keypad*",
+      "keyCode": "KeypadMultiply"
+    },
+    {
+      "keyNum": 86,
+      "keyName": "Keypad-",
+      "keyCode": "KeypadMinus"
+    },
+    {
+      "keyNum": 87,
+      "keyName": "Keypad+",
+      "keyCode": "KeypadPlus"
+    },
+    {
+      "keyNum": 88,
+      "keyName": "KeypadEnter",
+      "keyCode": "KeypadEnter"
+    },
+    {
+      "keyNum": 89,
+      "keyName": "Keypad1",
+      "keyCode": "Keypad1"
+    },
+    {
+      "keyNum": 90,
+      "keyName": "Keypad2",
+      "keyCode": "Keypad2"
+    },
+    {
+      "keyNum": 91,
+      "keyName": "Keypad3",
+      "keyCode": "Keypad3"
+    },
+    {
+      "keyNum": 92,
+      "keyName": "Keypad4",
+      "keyCode": "Keypad4"
+    },
+    {
+      "keyNum": 93,
+      "keyName": "Keypad5",
+      "keyCode": "Keypad5"
+    },
+    {
+      "keyNum": 94,
+      "keyName": "Keypad6",
+      "keyCode": "Keypad6"
+    },
+    {
+      "keyNum": 95,
+      "keyName": "Keypad7",
+      "keyCode": "Keypad7"
+    },
+    {
+      "keyNum": 96,
+      "keyName": "Keypad8",
+      "keyCode": "Keypad8"
+    },
+    {
+      "keyNum": 97,
+      "keyName": "Keypad9",
+      "keyCode": "Keypad9"
+    },
+    {
+      "keyNum": 98,
+      "keyName": "Keypad0",
+      "keyCode": "Keypad0"
+    },
+    {
+      "keyNum": 99,
+      "keyName": "Keypad.",
+      "keyCode": "KeypadPeriod"
+    },
+    {
+      "keyNum": 224,
+      "keyName": "LeftControl",
+      "keyCode": "LeftControl"
+    },
+    {
+      "keyNum": 225,
+      "keyName": "LeftShift",
+      "keyCode": "LeftShift"
+    },
+    {
+      "keyNum": 226,
+      "keyName": "LeftAlt",
+      "keyCode": "LeftAlt"
+    },
+    {
+      "keyNum": 227,
+      "keyName": "Left",
+      "keyCode": ""
+    },
+    {
+      "keyNum": 228,
+      "keyName": "RightControl",
+      "keyCode": "RightControl"
+    },
+    {
+      "keyNum": 229,
+      "keyName": "RightShift",
+      "keyCode": "RightShift"
+    },
+    {
+      "keyNum": 230,
+      "keyName": "RightAlt",
+      "keyCode": "RightAlt"
+    },
+    {
+      "keyNum": 231,
+      "keyName": "Right",
+      "keyCode": ""
+    }
+  ]
+}
